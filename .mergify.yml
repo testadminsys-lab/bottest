@@ -1,2 +1,7 @@
-# bottest
-bottest
+pull_request_rules:
+  - name: simple merge
+    conditions:
+      - base=main
+    actions:
+      merge:
+        method: merge 
