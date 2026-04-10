@@ -1,14 +1,12 @@
+
 pull_request_rules:
-  - name: Automatic merge on approval
+  - name: "Block restricted words in title"
     conditions:
-      - "#approved-reviews-by>=1"
+      - title~=DANGER
     actions:
-      merge:
-        method: merge
-pull_request_rules:
-  - name: automatic merge for everyone
-    conditions:
-      - base=main
-    actions:
-      merge:
-        method: merge
+      comment:
+        message: "STOP! You used a forbidden word."
+      post_check:
+        title: "Security Violation"
+        summary: "The word DANGER is not allowed."
+        success_conditions: null 
