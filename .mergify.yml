@@ -12,14 +12,3 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-        pull_request_rules:
-  - name: "Block restricted words in title"
-    conditions:
-      - title~=DANGER
-    actions:
-      comment:
-        message: "STOP! You used a forbidden word."
-      post_check:
-        title: "Security Violation"
-        summary: "The word DANGER is not allowed."
-        success: false 
