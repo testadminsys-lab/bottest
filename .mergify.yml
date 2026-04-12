@@ -1,11 +1,20 @@
 pull_request_rules:
-  - name: "Block restricted words in title"
+  - name: "Rule 1: Requires 2 Approvals"
     conditions:
-      - title~=DANGER
+      - "#approved-reviews-by>=2"
     actions:
-      comment:
-        message: "STOP! You used a forbidden word."
-      post_check:
-        title: "Security Violation"
-        summary: "The word DANGER is not allowed."
-        success: false 
+      merge:
+        method: merge
+
+  - name: "Rule 2: Command Trigger for Contributor"
+    conditions:
+      - "label=test-trigger"
+    actions:
+      rebase:
+
+  - name: "Rule 3: The Bot Impersonation Target"
+    conditions:
+      - "author=dependabot[bot]"
+    actions:
+      merge:
+        method: squash
