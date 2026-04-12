@@ -1,11 +1,23 @@
+# Mergify Test Configuration
 pull_request_rules:
-  - name: "Block restricted words in title"
+  - name: "Strict Security - Require 2 Approvals"
     conditions:
-      - title~=DANGER
+      - "#approved-reviews-by>=2"
+      - "check-success=continuous-integration/fake-ci"
     actions:
-      comment:
-        message: "STOP! You used a forbidden word."
-      post_check:
-        title: "Security Violation"
-        summary: "The word DANGER is not allowed."
-        success: false 
+      merge:
+        method: merge
+
+  - name: "Automation Command Trigger"
+    conditions:
+      - "label=ready-to-rebase"
+    actions:
+      rebase:
+
+  - name: "Backport for Stable Versions"
+    conditions:
+      - "label=backport-to-v1"
+    actions:
+      backport:
+        branches:
+          - stable-v1
