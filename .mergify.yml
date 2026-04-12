@@ -1,20 +1,7 @@
 pull_request_rules:
-  - name: "Rule 1: Requires 2 Approvals"
+  - name: "Simple Merge Rule"
     conditions:
       - "#approved-reviews-by>=2"
     actions:
       merge:
         method: merge
-
-  - name: "Rule 2: Command Trigger for Contributor"
-    conditions:
-      - "label=test-trigger"
-    actions:
-      rebase:
-
-  - name: "Rule 3: The Bot Impersonation Target"
-    conditions:
-      - "author=dependabot[bot]"
-    actions:
-      merge:
-        method: squash
