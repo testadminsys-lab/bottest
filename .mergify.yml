@@ -1,7 +1,24 @@
+# Mergify Test Configuration
 pull_request_rules:
-  - name: simple merge
+  - name: "Strict Security - Require 2 Approvals"
     conditions:
-      - base=main
+      - "#approved-reviews-by>=2"
+      - "check-success=continuous-integration/fake-ci"
     actions:
       merge:
-        method: merge 
+        method: merge
+
+  - name: "Automation Command Trigger"
+    conditions:
+      - "label=ready-to-rebase"
+    actions:
+      rebase:
+
+  - name: "Backport for Stable Versions"
+    conditions:
+      - "label=backport-to-v1"
+    actions:
+      backport:
+        branches:
+          - stable-v1
+          
